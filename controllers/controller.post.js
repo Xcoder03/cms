@@ -30,3 +30,19 @@ export const createPost = async (req, res, next) => {
     next(appError(error.message));
   }
 };
+
+
+//fetch all posts by admin
+
+export const fetchPostByAllAdmin = async (req, res, next) => {
+    try {
+      const posts = await Post.find({});
+      res.json({
+        status: "success",
+        data: posts,
+      });
+    } catch (error) {
+      next(appError(error.message));
+    }
+  };
+  
