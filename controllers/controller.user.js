@@ -6,6 +6,7 @@ import appError from "../errors/app-error.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import redisClient from  "../config/redisConfig.js"
+import sendEmail from "../utils/sendEmail.js";
 dotenv.config();
 
 // Register a user
@@ -145,7 +146,7 @@ export const registerUser = async(req, res, next) => {
       user.reseTokenExpiration = undefined;
   
       await user.save();
-      
+
           // Delete the reset token from the user document
       await User.updateOne(
         { _id: user._id },
