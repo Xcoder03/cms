@@ -37,3 +37,24 @@ export const fetchCategories = async (req, res, next) => {
       next(appError(error.message));
     }
   };
+
+  export const deleteCategory = async (req, res,next) => {
+    try {
+      const foundcate = await Category.findById(req.params.id);
+      if (foundcate) {
+        const deleteCate = await Category.findByIdAndDelete(foundcate);
+        if (deleteCate) {
+          res.json({
+            status: "success",
+            data: "category deleted successfully",
+          });
+        }
+      } else {
+        return next(appError("No such category",404)) 
+      
+      }
+    } catch (error) {
+      next(appError(error.message));
+    }
+  };
+  
