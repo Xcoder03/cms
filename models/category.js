@@ -3,11 +3,7 @@ import mongoose, { Schema } from "mongoose";
 
 const categorySchema = new mongoose.Schema(
     {
-user:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"User",
-    require:true,
-},
+
 title:{
     type:String,
     required:true,
