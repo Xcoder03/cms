@@ -25,3 +25,15 @@ export const createCategory = async (req, res, next) => {
     next(appError(error.message));
   }
 };
+// fetch all categories
+export const listCategories = async (req, res, next) => {
+    try {
+      const categoryList = await Category.find({});
+      res.json({
+        status: "success",
+        data: categoryList,
+      });
+    } catch (error) {
+      next(appError(error.message));
+    }
+  };
