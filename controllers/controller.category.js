@@ -26,7 +26,7 @@ export const createCategory = async (req, res, next) => {
   }
 };
 // fetch all categories
-export const listCategories = async (req, res, next) => {
+export const fetchCategories = async (req, res, next) => {
     try {
       const categoryList = await Category.find({});
       res.json({
