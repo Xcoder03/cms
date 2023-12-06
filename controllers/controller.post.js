@@ -46,3 +46,27 @@ export const fetchPostByAllAdmin = async (req, res, next) => {
     }
   };
   
+
+  export const deletPost = async (req, res, next) => {
+    //find post
+    try {
+      const postId = req.params.id;
+      const loggedUser = req.userAuth;
+  
+      const post = await Post.findOne({
+        _id: mongoose.Types.ObjectId(postId),
+        user: loggedUser,
+      });
+  
+      if (!post) {
+        return next(appError("Post not found", 404));
+      }
+      await post.delete();
+      res.json({
+        status: "success",
+        message: "post deleted successfully",
+      });
+    } catch (error) {
+      next(appError(error.message));
+    }
+  };
