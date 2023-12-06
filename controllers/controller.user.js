@@ -5,6 +5,7 @@ import { obtainTokenFromHeader } from "../utils/obtaintokenfromheader.js";
 import appError from "../errors/app-error.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import redisClient from  "../config/redisConfig.js"
 dotenv.config();
 
 // Register a user
@@ -69,4 +70,19 @@ export const registerUser = async(req, res, next) => {
     } catch (error) {
       next(appError(error.message));
     }
+  };
+
+  // logout user
+
+  export const userLogoutCtrl = (req, res, next) => {
+    const token = req.token;
+  
+    if (!token) {
+      return next(appError("No valid token found", 401));
+    }
+  
+    // Add the token to the Redis blacklist with an expiration time
+    redisClient.setex(token, 3600, 'revoked'); // Assuming an expiration time of 1 hour
+  
+    res.json({ status: 'success', message: 'User logged out successfully' });
   };
