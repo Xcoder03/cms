@@ -70,3 +70,43 @@ export const fetchPostByAllAdmin = async (req, res, next) => {
       next(appError(error.message));
     }
   };
+
+
+  export const updatePostController = async (req, res, next) => {
+    const { title, description, category } = req.body;
+    try {
+      const postId = req.params.id;
+      //obtain the post
+      const post = await Post.findById(postId);
+      //check the post exists
+      if (!post) {
+        return next(appError("Sorry post not found!", 404));
+      }
+  
+      //check if the post belongs to the cureent user
+      const doesPostBelongToCurrentUser =
+        post.user.toString() === req.userAuth.toString();
+      if (!doesPostBelongToCurrentUser) {
+        return next(appError("Access denied", 403));
+      }
+      //now updaste the post
+  
+      const postUpdate = await Post.findByIdAndUpdate(
+        postId,
+        {
+          title,
+          description,
+          category,
+        },
+        {
+          new: true,
+        }
+      );
+      res.json({
+        status: "success",
+        data: postUpdate,
+      });
+    } catch (error) {
+      next(appError(error.message));
+    }
+  };
