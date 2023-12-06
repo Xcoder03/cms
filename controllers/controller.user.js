@@ -120,3 +120,47 @@ export const registerUser = async(req, res, next) => {
       next(appError(error.message));
     }
   };
+
+  // reset the password 
+
+  export const resetPassword = async (req, res, next) => {
+    try {
+      const { resetToken, password } = req.body;
+      //find the user with token
+      const user = await User.findOne({
+        resetToken,
+        reseTokenExpiration: { $gt: Date.now() },
+      });
+  
+      if (!user) {
+        return next(appError("Invalid or the link expired", 400));
+      }
+      //Hash
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+  
+      //update useer obj
+      user.password = hashedPassword;
+      user.resetToken = undefined;
+      user.reseTokenExpiration = undefined;
+  
+      await user.save();
+      
+          // Delete the reset token from the user document
+      await User.updateOne(
+        { _id: user._id },
+        { $unset: { resetToken: 1, resetTokenExpiration: 1 } }
+      );
+  
+  
+      res.status(200).json({
+        status: "success",
+        message: "Your password reset successfully",
+      });
+      const html = `<h3> success </h3><br/> <p>You password changed successfully</p> `;
+      await sendEmail(user.email, "Password Message", html);
+    } catch (error) {
+      next(appError(error.message));
+    }
+  };
+  
