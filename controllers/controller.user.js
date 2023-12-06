@@ -86,3 +86,37 @@ export const registerUser = async(req, res, next) => {
   
     res.json({ status: 'success', message: 'User logged out successfully' });
   };
+
+  // forget password
+
+  export const forgetPassword = async (req, res, next) => {
+    try {
+      const { email } = req.body;
+      //check if email is valid
+      const user = await User.findOne({ email });
+      if (!user) {
+        return next(appError(`User with ${email} does not exists `, 404));
+      }
+      //Generate a reset token
+      const resetToken = jwt.sign({ userId: user._id }, process.env.JWT_KEY, {
+        expiresIn: "1h",
+      });
+      //set the rest token and its expiration on the user obj
+  
+      user.resetToken = resetToken;
+      user.reseTokenExpiration = Date.now() + 3600000;
+  
+      user.save();
+      //send the password reset email
+      const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
+      const html = `<h3>RESET PASSWORD</h3><br/> <p>Below is the link to reset your password<br>This link only valid for 1 hour. please do not share with anyone<hr/><br/>click <strong> <a href="${resetUrl}">here</a> </strong>to reset your password</p><p>Having issues? kindly contact our support team</p> `;
+      await sendEmail(user.email, "Reset Your Password", html);
+  
+      res.status(200).json({
+        status: "success",
+        message: "Password reset sent successfully to the " + user.email,
+      });
+    } catch (error) {
+      next(appError(error.message));
+    }
+  };
