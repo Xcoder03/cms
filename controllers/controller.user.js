@@ -175,7 +175,7 @@ export const displayAllUsers = async (req, res, next) => {
         data: users,
       });
     } catch (error) {
-      next(AppError(error.message));
+      next(appError(error.message));
     }
   };
 
@@ -213,3 +213,21 @@ export const displayAllUsers = async (req, res, next) => {
     }
     
 }
+
+//delete user
+export const deleteUserController = async (req, res, next) => {
+    const userid = req.params.id;
+    const found = await User.findByIdAndDelete(userid);
+    if(!found){
+      return next(appError("No user with such ID",404))
+    }
+    
+    try {
+      res.json({
+        status: "success",
+        data: `User account deleted successfully`,
+      });
+    } catch (error) {
+      next(appError(error.message));
+    }
+  };
