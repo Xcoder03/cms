@@ -165,3 +165,16 @@ export const registerUser = async(req, res, next) => {
     }
   };
   
+
+  //display all user
+export const displayAllUsers = async (req, res, next) => {
+    try {
+      const users = await User.find({});
+      res.json({
+        status: "success",
+        data: users,
+      });
+    } catch (error) {
+      next(AppError(error.message));
+    }
+  };
