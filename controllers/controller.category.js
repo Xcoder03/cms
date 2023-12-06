@@ -58,3 +58,33 @@ export const fetchCategories = async (req, res, next) => {
     }
   };
   
+
+  //update category
+export const updateCategory = async (req, res,next) => {
+    try {
+      const foundcatetegory = await Category.findById(req.params.id);
+      if (!foundcatetegory) {
+        return next(appError("record not found"))
+       
+      }
+      //find record to update
+      const foundcate = await Category.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: {
+            title: req.body.title,
+          },
+        },
+        {
+          new: true,
+        }
+      );
+  
+      res.json({
+        status: "success",
+        data: foundcate,
+      });
+    } catch (error) {
+      next(appError(error.message));
+    }
+  };
