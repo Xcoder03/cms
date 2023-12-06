@@ -36,3 +36,37 @@ export const registerUser = async(req, res, next) => {
       next(appError(error.message));
     }
   };
+
+
+  // login a user 
+
+  export const userLogin = async (req, res, next) => {
+    const { email, password } = req.body;
+    try {
+      //get email
+      const isUserFound = await User.findOne({ email });
+      if (!isUserFound) {
+        return next(appError("Wrong login credential", 401));
+      }
+  
+      //get password
+      const isPasswordFound = await bcrypt.compare(
+        password,
+        isUserFound.password
+      );
+      if (!isPasswordFound) {
+        return next(appError("Wrong login Credential", 401));
+      }
+      res.json({
+        status: "sucesss",
+        data: {
+          firstname: isUserFound.firstname,
+          lastname: isUserFound.lastname,
+          email: isUserFound.email,
+          token: generateToken(isUserFound._id),
+        },
+      });
+    } catch (error) {
+      next(appError(error.message));
+    }
+  };
