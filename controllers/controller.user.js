@@ -215,7 +215,7 @@ export const displayAllUsers = async (req, res, next) => {
 }
 
 //delete user
-export const deleteUserController = async (req, res, next) => {
+export const deleteUser = async (req, res, next) => {
     const userid = req.params.id;
     const found = await User.findByIdAndDelete(userid);
     if(!found){
@@ -231,3 +231,4 @@ export const deleteUserController = async (req, res, next) => {
       next(appError(error.message));
     }
   };
+  
