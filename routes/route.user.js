@@ -10,6 +10,7 @@ const userRoutes = express.Router();
 
 // user routes 
 userRoutes.post("/register-user", validateUser, userCtrl.registerUser)
+userRoutes.post("/register-admin", validateUser,userCtrl.registerAdmin)
 userRoutes.post("/log-in-user", userCtrl.userLogin)
 userRoutes.get("/display-All-Users", isAdmin, isLogin, userCtrl.displayAllUsers)
 userRoutes.get("/logout-user", isLogin, userCtrl.userLogoutCtrl)
