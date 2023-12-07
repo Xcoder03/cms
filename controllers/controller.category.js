@@ -1,5 +1,5 @@
 
-import Category from "../model/category.js";
+import Category from "../models/category.js";
 import appError from "../errors/app-error.js";
 // an admin will add a category
 export const createCategory = async (req, res, next) => {
