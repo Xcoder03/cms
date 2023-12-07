@@ -9,3 +9,5 @@ postRoutes.post("/create-post", isLogin, postCtrl.createPost)
 postRoutes.get("/get-all-posts", isLogin, isAdmin, postCtrl.fetchAllPosts)
 postRoutes.put("/edit-post", isLogin, postCtrl.updatePostController)
 postRoutes.delete("/delete-post", isLogin, postCtrl.deletPost)
+
+export default postRoutes;
