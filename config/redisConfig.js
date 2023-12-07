@@ -8,6 +8,11 @@ const redisClient = redis.createClient({
   // Add other configuration options as needed
 });
 
+// Event listener for 'connect'
+redisClient.on('connect', () => {
+  console.log('Connected to Redis');
+});
+
 redisClient.on('error', (err) => {
   console.error('Redis Error:', err);
 });
