@@ -8,9 +8,14 @@ import { isAdmin } from "../middlewares/isAdmin.js";
 
 const userRoutes = express.Router();
 
-// register user 
+// user routes 
 userRoutes.post("/register-user", validateUser, userCtrl.registerUser)
 userRoutes.post("/log-in-user", userCtrl.userLogin)
-userRoutes.get("/display-All-Users", isAdmin, userCtrl.displayAllUsers)
+userRoutes.get("/display-All-Users", isAdmin, isLogin, userCtrl.displayAllUsers)
 userRoutes.get("/logout-user", isLogin, userCtrl.userLogoutCtrl)
+userRoutes.post("/forget-password", userCtrl.forgetPassword)
+userRoutes.post("/reset-password", userCtrl.resetPassword)
+userRoutes.put("/update-user-info", isLogin, userCtrl.updateUserProfile)
+userRoutes.delete("/delete-user", isAdmin, isLogin, userCtrl.deleteUser)
 
+export default userRoutes;
