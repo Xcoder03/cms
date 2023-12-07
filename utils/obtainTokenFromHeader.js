@@ -1,5 +1,5 @@
-import appError from "../errors/app-error"
-import redisClient from "../config/redisConfig"
+import appError from "../errors/app-error.js"
+import redisClient from "../config/redisConfig.js"
 
 export const obtainTokenFromHeader =  ((req,res,next )=>{
     const headerDetails = req.headers;
