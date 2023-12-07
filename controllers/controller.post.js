@@ -31,12 +31,14 @@ export const createPost = async (req, res, next) => {
   }
 };
 
-
-//fetch all posts by admin
-
-export const fetchPostByAllAdmin = async (req, res, next) => {
+//fetch all post
+export const fetchAllPosts = async (req, res, next) => {
+    //fetch all post
+    const posts = await Post.find({})
+      .populate("user")
+      .populate("category", "title")
+  
     try {
-      const posts = await Post.find({});
       res.json({
         status: "success",
         data: posts,
