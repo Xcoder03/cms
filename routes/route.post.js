@@ -1,7 +1,6 @@
 import express from "express";
 import * as postCtrl from  "../controllers/controller.post.js"
 import { isLogin } from "../middlewares/isLogin.js";
-import { validateUser } from "../middlewares/userValidation.js";
 import { isAdmin } from "../middlewares/isAdmin.js";
 
 const postRoutes =  express.Router();

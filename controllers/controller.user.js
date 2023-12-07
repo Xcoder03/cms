@@ -1,7 +1,7 @@
 import User from "../models/user.js"
 import bcrypt from "bcrypt";
 import generateToken from "../utils/generateToken.js";
-import { obtainTokenFromHeader } from "../utils/obtaintokenfromheader.js";
+
 import appError from "../errors/app-error.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
