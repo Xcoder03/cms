@@ -232,3 +232,38 @@ export const deleteUser = async (req, res, next) => {
     }
   };
   
+
+  // register admin
+
+  // Controller to create an admin
+export const registerAdmin = async (req, res, next) => {
+    const { firstname, lastname, email, password } = req.body;
+    try {
+      // Check if user with the provided email already exists
+      const foundUser = await User.findOne({ email });
+  
+      if (foundUser) {
+        return next(appError("User with that email already exists", 409));
+      } else {
+        // Hash the password
+        const salt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(password, salt);
+  
+        // Create a new user with isAdmin set to true
+        const user = await User.create({
+          firstname,
+          lastname,
+          email,
+          password: hashPassword,
+          isAdmin: true, // Set isAdmin to true for an admin user
+        });
+  
+        res.json({
+          status: "success",
+          data: user,
+        });
+      }
+    } catch (error) {
+      next(appError(error.message));
+    }
+  };
