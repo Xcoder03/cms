@@ -1,9 +1,6 @@
-import User from "../models/user"
-import bcrypt from "bcrypt";
-import generateToken from "../utils/generateToken.js";
-import { obtainTokenFromHeader } from "../utils/obtaintokenfromheader.js";
-import Category from "../model/Category.js";
-import appError from "../utils/AppErr.js";
+
+import Category from "../model/category.js";
+import appError from "../errors/app-error.js";
 // an admin will add a category
 export const createCategory = async (req, res, next) => {
   const { title } = req.body;

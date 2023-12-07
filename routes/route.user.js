@@ -1,7 +1,7 @@
 // your routes goes here 
 
 import express from "express";
-import * as userCtrl from  "../controllers/controller.user"
+import * as userCtrl from  "../controllers/controller.user.js"
 import { isLogin } from "../middlewares/isLogin.js";
 import { validateUser } from "../middlewares/userValidation.js";
 import { isAdmin } from "../middlewares/isAdmin.js";

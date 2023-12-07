@@ -1,5 +1,5 @@
 import User from "../models/user.js";
-import appError from "../utils/appErr.js";
+import appError from "../errors/app-error.js";
 import { obtainTokenFromHeader } from "../utils/obtaintokenfromheader.js";
 import { verifyToken } from "../utils/verifytoken.js";
 

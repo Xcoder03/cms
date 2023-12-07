@@ -2,8 +2,7 @@
 import mongoose from "mongoose";
 import Post from "../models/post.js";
 import User from "../models/user.js";
-import Category from "../models/category.js";
-import appError from "../utils/appErr.js";
+import appError from "../errors/app-error.js";
 
 export const createPost = async (req, res, next) => {
   const { title, description, category } = req.body;

@@ -1,7 +1,7 @@
 
-import appError from "../errors/app-error";
-import { obtainTokenFromHeader } from "../utils/obtainTokenFromHeader.js"
-import { verifyToken } from "../utils/verifyToken.js";
+import appError from "../errors/app-error.js";
+import { obtainTokenFromHeader } from "../utils/obtaintokenfromheader.js";
+import { verifyToken } from "../utils/verifytoken.js";
 
 export const isLogin = async (req, res,next)=>{
    //get token header
