@@ -8,3 +8,4 @@ categoryRoutes.post("/create-category", isLogin, isAdmin, categoryCtrl.createCat
 categoryRoutes.get("/fetch-all-categories", isLogin, isAdmin, categoryCtrl.fetchCategories)
 categoryRoutes.put("/edit-category", isLogin, isAdmin, categoryCtrl.updateCategory)
 categoryRoutes.delete("/deleet-category", isLogin, isAdmin, categoryCtrl.deleteCategory)
+export default categoryRoutes;
