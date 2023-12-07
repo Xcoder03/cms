@@ -2,7 +2,9 @@
 
 
 import mongoose from "mongoose";
+import dotenv from "dotenv"
 
+dotenv.config();
 export const database = async () =>{
     try {
         mongoose.set("strictQuery",false);
