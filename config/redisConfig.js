@@ -12,4 +12,4 @@ redisClient.on('error', (err) => {
   console.error('Redis Error:', err);
 });
 
-module.exports = redisClient;
+export default redisClient;
