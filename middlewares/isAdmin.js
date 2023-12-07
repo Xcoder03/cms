@@ -1,7 +1,7 @@
 import User from "../models/user.js";
 import appError from "../errors/app-error.js";
-import { obtainTokenFromHeader } from "../utils/obtaintokenfromheader.js";
-import { verifyToken } from "../utils/verifytoken.js";
+import { obtainTokenFromHeader } from "../utils/obtainTokenFromHeader.js";
+import { verifyToken } from "../utils/verifyToken.js";
 
 export const isAdmin = async (req, res, next) => {
   //get token header
